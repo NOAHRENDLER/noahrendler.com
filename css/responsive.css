@@ -1,0 +1,83 @@
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE — Adaptive rules.
+   Design is desktop-first (SOC dashboards are desktop tools),
+   but the site must be usable on all screen sizes.
+
+   Grid breakpoints:
+     ≥ 1025px   — 3 columns (desktop default, set in layout.css)
+     768–1024px — 2 columns, all tiles span 1
+     < 768px    — 1 column,  all tiles span 1
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Tablet: 768px – 1024px — 2-column grid ─────────────────── */
+/* All tile spans collapse to 1 so every row fills both columns
+   without leaving gaps. */
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* Square tiles at 2-column layout: (vw − 2×padding − 1×gap) / 2 */
+    grid-auto-rows: calc((100vw - 3 * var(--gap-grid)) / 2);
+  }
+
+  .tile-span-2,
+  .tile-span-3 {
+    grid-column: span 1;
+  }
+}
+
+/* ── Mobile: < 768px — single-column grid ───────────────────── */
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    /* On mobile let tiles breathe at a comfortable fixed height — full
+       square would be too tall on narrow screens. */
+    grid-auto-rows: 280px;
+  }
+
+  .tile-span-2,
+  .tile-span-3 {
+    grid-column: span 1;
+  }
+}
+
+/* ── Topbar adjustments (≤ 600px) ───────────────────────────── */
+
+@media (max-width: 600px) {
+  .topbar__title {
+    font-size: var(--fs-md);
+  }
+
+  .topbar__clock {
+    display: none;
+  }
+
+  .topbar__status-badge {
+    display: none;
+  }
+}
+
+/* ── System Status Bar (≤ 600px) ────────────────────────────── */
+/* At ≤600px the 4 items wrap to 2 rows (each item ~--sys-bar-height tall).
+   Compensate main-content margin-top for the 2-row height:
+   2 × --sys-bar-height + 8px row-gap inside the container. */
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: calc(var(--topbar-height) + var(--sys-bar-height) * 2 + 8px);
+  }
+}
+
+/* ── Horizontal scroll for skills table (≤ 768px) ───────────── */
+
+@media (max-width: 768px) {
+  .skills-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .skills-table {
+    min-width: 500px;
+  }
+}

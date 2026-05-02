@@ -1,0 +1,21 @@
+/* ─────────────────────────────────────────────────────────────
+   SCANLINE — Terminal/CRT overlay effect.
+   Pure CSS. No JavaScript. pointer-events: none so it never
+   blocks interaction with elements below.
+   Cyan-tinted lines at --scanline-opacity, 6px period.
+   ───────────────────────────────────────────────────────────── */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 212, 255, var(--scanline-opacity)) 3px,
+    rgba(0, 212, 255, var(--scanline-opacity)) 6px
+  );
+  pointer-events: none;
+  z-index: var(--z-scanline);
+}

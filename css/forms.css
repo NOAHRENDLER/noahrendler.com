@@ -1,0 +1,138 @@
+/* ─────────────────────────────────────────────────────────────
+   FORMS — Contact form styles.
+   No inline styles. No JavaScript-injected styles.
+   ───────────────────────────────────────────────────────────── */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Honeypot field — visually hidden but NOT display:none
+   (bots detect display:none and skip it) ─────────────────────── */
+
+.form-field--hp {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Form fields ─────────────────────────────────────────────── */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-field__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.form-field__input,
+.form-field__textarea {
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  padding: 0.625rem 0.875rem;
+  width: 100%;
+  transition: border-color var(--transition-fast);
+  /* No border-radius — sharp edges per design spec */
+  border-radius: 0;
+}
+
+.form-field__input:focus,
+.form-field__textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.form-field__input::placeholder,
+.form-field__textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-field__textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ── Field errors ────────────────────────────────────────────── */
+
+.form-field__error {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-severity-high);
+  min-height: 1em;
+  display: block;
+}
+
+.form-field--invalid .form-field__input,
+.form-field--invalid .form-field__textarea {
+  border-color: var(--color-severity-high);
+}
+
+/* ── Form actions ────────────────────────────────────────────── */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.form-submit-btn {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 0.625rem 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  border-radius: 0;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Form status message ─────────────────────────────────────── */
+
+.form-status {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  min-height: 1em;
+}
+
+.form-status--success {
+  color: var(--color-accent);
+}
+
+.form-status--error {
+  color: var(--color-severity-high);
+}

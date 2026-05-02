@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Claude
+CLAUDE.md
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+
+# Thumbnails
+._*
+Thumbs.db
+
+# Test coverage (generated — never commit)
+coverage/
+
+# Lock file (optional — uncomment to ignore)
+# package-lock.json

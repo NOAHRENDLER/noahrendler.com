@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    Content Security Policy
+    ─────────────────────────────────────────────────────────────
+    - default-src 'self'       : Everything must come from own domain.
+    - script-src 'self'        : No inline JS, no eval(). All scripts in files.
+    - style-src 'self'         : No inline styles injected via JS.
+    - font-src 'self'          : Fonts self-hosted in /fonts/ — no CDN.
+    - img-src 'self' data: ... : data: URIs + TryHackMe badge host allowed.
+    - connect-src 'self' ...   : Only Formspree allowed for AJAX.
+    - form-action ...          : Forms may only submit to Formspree.
+    - frame-ancestors 'none'   : Clickjacking protection.
+    - base-uri 'self'          : Prevents base-tag injection.
+    - object-src 'none'        : No plugins or embeds.
+
+    Note: 'unsafe-inline' and 'unsafe-eval' are intentionally absent.
+    Update connect-src and form-action when switching form provider.
+    ─────────────────────────────────────────────────────────────
+  -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://gc.zgo.at;
+    style-src 'self';
+    font-src 'self';
+    img-src 'self' data: https://tryhackme-badges.s3.amazonaws.com;
+    connect-src 'self' https://formspree.io https://api.web3forms.com https://noahrendler.goatcounter.com;
+    form-action https://formspree.io https://api.web3forms.com;
+    frame-ancestors 'none';
+    base-uri 'self';
+    object-src 'none';
+  ">
+
+  <!-- SEO -->
+  <title>Noah Rendler — SOC Portfolio</title>
+  <meta name="description" content="Cybersecurity Student aus dem Raum Stuttgart mit Fokus auf Blue Team, SOC Analysis und Security Engineering. Suche Bachelorarbeit im Security-Bereich.">
+  <meta name="author" content="Noah Rendler">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://noahrendler.com/">
+
+  <!-- Open Graph (LinkedIn, WhatsApp, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Noah Rendler — SOC Portfolio">
+  <meta property="og:description" content="Cybersecurity Student aus dem Raum Stuttgart mit Fokus auf Blue Team, SOC Analysis und Security Engineering.">
+  <meta property="og:url" content="https://noahrendler.com/">
+  <meta property="og:locale" content="de_DE">
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Noah Rendler — SOC Portfolio">
+  <meta name="twitter:description" content="Cybersecurity Student aus dem Raum Stuttgart mit Fokus auf Blue Team, SOC Analysis und Security Engineering.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- No external resources. All assets are self-hosted. -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/scanline.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ── Topbar ──────────────────────────────────────────────── -->
+  <header class="topbar" role="banner">
+    <div class="topbar__left">
+      <span class="topbar__title" id="topbar-title"></span>
+      <span class="topbar__status-badge" id="topbar-status"></span>
+    </div>
+    <div class="topbar__right">
+      <time class="topbar__clock" id="clock" aria-live="polite" aria-atomic="true"></time>
+      <button
+        class="topbar__lang-toggle"
+        id="lang-toggle"
+        type="button"
+        aria-label="Switch to English"
+      >EN</button>
+    </div>
+  </header>
+
+  <!-- ── System Status Bar ───────────────────────────────────── -->
+  <!-- Populated by renderSysBar() in renderer.js -->
+  <div class="sys-bar" id="sys-bar" role="status" aria-label="System status"></div>
+
+  <!-- ── Main Content ────────────────────────────────────────── -->
+  <main class="main-content" role="main">
+
+    <!-- ── Dashboard Grid ──────────────────────────────────────── -->
+    <!-- Populated by renderGrid() in renderer.js.
+         Each tile is built from TILES_CONFIG in js/tiles-config.js. -->
+    <div class="grid" id="main-grid" aria-label="Dashboard panels"></div>
+
+    <!-- ── Expanded Panels ─────────────────────────────────────── -->
+    <!-- One panel per expandable tile — activated by navigation.js
+         in Phase 3. Hidden by default. -->
+    <div id="expanded-panels"></div>
+
+  </main>
+
+  <!-- ── Network Topology Expanded — fullscreen overlay ──────── -->
+  <!-- Hidden by default. Activated by topology.js via .is-open class.
+       The global page topbar (above) is updated by openTopology/closeTopology
+       to show a BACK button + "NETWORK TOPOLOGY" title while open. -->
+  <div id="topology-expanded">
+    <div class="topo-sub-bar">
+      <button class="topo-sub-back" id="topo-back-btn" type="button">◀ BACK</button>
+      <div class="topo-sub-divider"></div>
+      <span class="topo-sub-label">HOMELAB</span>
+      <span class="topo-sub-desc">Homelab-Netzwerk mit zwei Proxmox-Nodes — SOC Zone für Security-Tools (Wazuh, ELK, Graylog) und Life Zone für Self-Hosted-Services (Nextcloud, Jellyfin, Home Assistant). Alle Systeme im Status PLANNED.</span>
+      <span class="topo-sub-meta">2× PROXMOX · SOC ZONE + LIFE ZONE · PLANNED</span>
+    </div>
+    <div class="topo-canvas-row">
+      <div class="topo-canvas-wrapper">
+        <div id="topo-canvas"></div>
+        <div class="topo-monitor-badge">
+          <div class="topo-pulse-dot"></div>
+          GRAFANA + PROMETHEUS — MONITORING ALL SYSTEMS
+          <div class="topo-pulse-dot"></div>
+        </div>
+      </div>
+      <div id="topo-side-panel"></div>
+    </div>
+  </div>
+
+  <!--
+    Single entry point. ES Modules — strict mode is automatic,
+    no global scope pollution, explicit dependencies.
+    No inline scripts allowed by CSP.
+  -->
+  <script type="module" src="js/main.js"></script>
+
+  <!-- GoatCounter Analytics -->
+  <script data-goatcounter="https://noahrendler.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

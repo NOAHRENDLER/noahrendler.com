@@ -1,0 +1,180 @@
+/* ─────────────────────────────────────────────────────────────
+   VARIABLES — CSS Custom Properties
+   Single source of truth for all design tokens.
+   ───────────────────────────────────────────────────────────── */
+
+/* Self-hosted fonts — files must be placed in /fonts/
+   Required files:
+     JetBrainsMono-Regular.woff2
+     JetBrainsMono-Bold.woff2
+     SpaceGrotesk-Regular.woff2
+     SpaceGrotesk-SemiBold.woff2
+     SpaceGrotesk-Bold.woff2
+   Download from: https://www.jetbrains.com/lp/mono/
+                  https://fonts.google.com/specimen/Space+Grotesk
+*/
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../fonts/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../fonts/SpaceGrotesk-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../fonts/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* === BACKGROUNDS === */
+  --bg-primary:   #070b12;   /* Body background */
+  --bg-secondary: #0d1320;   /* Tile background, topbar */
+  --bg-tertiary:  #111827;   /* Nested elements, form inputs */
+  --bg-hover:     #0f1628;   /* Tile on hover */
+
+  /* === BORDERS === */
+  --border-default: #1e293b;
+  --border-hover:   #00d4ff35;
+
+  /* === TEXT === */
+  --text-primary:   #e2e8f0;  /* Titles, names */
+  --text-secondary: #94a3b8;  /* Body, labels */
+  --text-muted:     #64748b;  /* Hints, meta */
+  --text-faint:     #475569;  /* Section labels, smallest text */
+
+  /* === ACCENT (Brand) === */
+  --accent:      #00d4ff;      /* Cyan — primary brand colour */
+  --accent-dim:  #00d4ff35;   /* Hover states */
+  --accent-soft: #00d4ff12;   /* Badge backgrounds */
+
+  /* === SEVERITY (events, threats) === */
+  --sev-critical: #ef4444;
+  --sev-high:     #f97316;
+  --sev-medium:   #eab308;
+  --sev-low:      #22c55e;
+  --sev-info:     #3b82f6;
+
+  /* === STATUS (cases, items) === */
+  --status-open:     #f97316;
+  --status-progress: #eab308;
+  --status-closed:   #22c55e;
+
+  /* === TILE ACCENT STRIPES (left edge of each tile) === */
+  --tile-accent-profile:  #00d4ff;
+  --tile-accent-cv:       #a78bfa;
+  --tile-accent-skills:   #3b82f6;
+  --tile-accent-projects: #f97316;
+  --tile-accent-certs:    #ec4899;
+  --tile-accent-contact:  #22c55e;
+  --tile-accent-topology: #06b6d4;
+  --tile-accent-ctf:      #ef4444;
+  --tile-accent-uptime:   #22c55e;
+  --tile-accent-radar:    #a78bfa;
+
+  /* === TYPOGRAPHY === */
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Space Grotesk', sans-serif;
+
+  --fs-xs:   9px;   /* Labels, hints */
+  --fs-sm:  10px;   /* Meta, timestamps */
+  --fs-base: 11px;  /* Body, events, list entries */
+  --fs-md:  12px;   /* Project titles */
+  --fs-lg:  14px;   /* Expanded-view titles */
+  --fs-xl:  15px;   /* System-bar values */
+  --fs-2xl: 20px;   /* Name, main headings */
+
+  /* === SPACING === */
+  --gap-grid:        10px;
+  --gap-section:     12px;
+  --padding-tile:    16px;
+  --padding-expanded: 20px;
+
+  /* === EFFECTS === */
+  --scanline-opacity: 0.012;
+  --transition-fast: 0.2s ease;
+
+  /* === LAYOUT === */
+  --topbar-height:   68px;
+  --sys-bar-height:  64px;
+  --max-width:       1280px;
+  --tile-min-width:  240px;
+  --tile-min-height: 160px;
+
+  /* === Z-INDEX === */
+  --z-scanline: 9999;
+  --z-topbar:   100;
+  --z-sys-bar:   99;
+
+
+  /* ── Backward-compat aliases (components.css and forms.css use old token names) ── */
+
+  --color-bg:           var(--bg-primary);
+  --color-bg-panel:     var(--bg-secondary);
+  --color-bg-card:      var(--bg-tertiary);
+  --color-bg-input:     var(--bg-tertiary);
+
+  --color-border:       var(--border-default);
+  --color-border-light: var(--accent-dim);
+
+  --color-accent:       var(--accent);
+  --color-accent-dim:   var(--accent-dim);
+  --color-accent-glow:  var(--accent-dim);
+
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+  --color-text-accent:    var(--accent);
+
+  --color-severity-critical: var(--sev-critical);
+  --color-severity-high:     var(--sev-high);
+  --color-severity-medium:   var(--sev-medium);
+  --color-severity-low:      var(--sev-low);
+  --color-severity-info:     var(--sev-info);
+
+  --color-status-open:        var(--status-open);
+  --color-status-in-progress: var(--status-progress);
+  --color-status-closed:      var(--status-closed);
+
+  /* Proficiency — mapped to equivalent badge palette */
+  --color-proficiency-beginner:     var(--text-muted);
+  --color-proficiency-intermediate: var(--accent);
+  --color-proficiency-advanced:     var(--sev-medium);
+  --color-proficiency-expert:       var(--sev-high);
+
+  /* Font sizes — old rem-based names map to new px values */
+  --font-size-xs:   var(--fs-xs);
+  --font-size-sm:   var(--fs-sm);
+  --font-size-base: var(--fs-base);
+  --font-size-md:   var(--fs-md);
+  --font-size-lg:   var(--fs-lg);
+  --font-size-xl:   var(--fs-xl);
+  --font-size-2xl:  var(--fs-2xl);
+}

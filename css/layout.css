@@ -1,0 +1,226 @@
+/* ─────────────────────────────────────────────────────────────
+   LAYOUT — Topbar, System Status Bar, Main Content.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Base ───────────────────────────────────────────────────── */
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ── Topbar ──────────────────────────────────────────────────── */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-height);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 1.25rem;
+  z-index: var(--z-topbar);
+}
+
+.topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.topbar__status-badge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.625rem;
+  border: 1px solid var(--border-default);
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.topbar__clock {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.topbar__lang-toggle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border-default);
+  background: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.topbar__lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── System Status Bar ───────────────────────────────────────── */
+
+.sys-bar {
+  position: fixed;
+  top: var(--topbar-height);
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 1.25rem;
+  z-index: var(--z-sys-bar);
+}
+
+.sys-bar__item {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-default);
+  background-color: var(--bg-primary);
+}
+
+.sys-bar__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sys-bar__dot--green { background: var(--status-closed); box-shadow: 0 0 5px var(--status-closed); }
+.sys-bar__dot--cyan  { background: var(--accent);        box-shadow: 0 0 5px var(--accent); }
+.sys-bar__dot--amber { background: var(--sev-medium);    box-shadow: 0 0 5px var(--sev-medium); }
+
+.sys-bar__info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.sys-bar__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sys-bar__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ── Main Content ────────────────────────────────────────────── */
+
+.main-content {
+  margin-top: calc(var(--topbar-height) + var(--sys-bar-height));
+  min-height: calc(100vh - var(--topbar-height) - var(--sys-bar-height));
+  overflow-x: hidden;
+}
+
+/* ── Main Grid ───────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Row height = column width → span-1 tiles are square.
+     Formula: (viewport − 2×padding − 2×column-gaps) / 3 columns = (vw − 40px) / 3.
+     Capped at max-width so it doesn't grow past (1280−40)/3 ≈ 413px. */
+  grid-auto-rows: 300px;
+  gap: var(--gap-grid);
+  padding: var(--gap-grid);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tile column spans — only span 1 and span 2 are used.
+   span 3 is kept for forward compatibility. */
+.tile-span-1 { grid-column: span 1; }
+.tile-span-2 { grid-column: span 2; }
+.tile-span-3 { grid-column: span 3; }
+
+/* ── Section headings (used by legacy render functions) ── */
+
+.section__heading {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Left accent line before section heading */
+.section__heading::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--accent);
+  flex-shrink: 0;
+}
+
+.section__content {
+  flex: 1;
+}
