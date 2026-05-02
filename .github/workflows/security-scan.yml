@@ -1,6 +1,10 @@
 name: Weekly Security Scan
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   schedule:
     - cron: '0 8 * * 1'  # Jeden Montag 08:00 UTC
   workflow_dispatch:       # Manuell auslösbar
