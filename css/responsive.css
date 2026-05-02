@@ -17,7 +17,7 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
     /* Square tiles at 2-column layout: (vw − 2×padding − 1×gap) / 2 */
-    grid-auto-rows: clamp(200px, calc((100vw - 3 * var(--gap-grid)) / 2), 400px);
+    grid-auto-rows: minmax(200px, 1fr);
   }
 
   .tile-span-2,
