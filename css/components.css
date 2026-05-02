@@ -2932,7 +2932,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent, #00d4ff);
-  border: 1px solid color-mix(in srgb, var(--accent, #00d4ff) 35%, transparent);
+  border: 1px solid rgba(0, 212, 255, 0.3);
   padding: 3px 8px;
 }
 
