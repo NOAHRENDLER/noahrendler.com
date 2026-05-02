@@ -55,6 +55,8 @@ jobs:
             --verbose
             --no-progress
             --exclude "https://tryhackme-badges.s3.amazonaws.com"
+            --exclude "https://api.web3forms.com"
+            --exclude "https://formspree.io"
             "**/*.html"
             "**/*.md"
         env:
