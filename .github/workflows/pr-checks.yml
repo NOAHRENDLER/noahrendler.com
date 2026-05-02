@@ -57,6 +57,7 @@ jobs:
             --exclude "https://tryhackme-badges.s3.amazonaws.com"
             --exclude "https://api.web3forms.com"
             --exclude "https://formspree.io"
+            --exclude "https://noahrendler.com"
             "**/*.html"
             "**/*.md"
         env:
