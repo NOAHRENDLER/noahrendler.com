@@ -297,7 +297,7 @@ const DATA = Object.freeze({
 
     ui: Object.freeze({
       topbar: Object.freeze({
-        title: 'SOC // PORTFOLIO',
+        title: 'NOAH RENDLER',
         statusLabel: 'SUCHE BACHELORARBEIT'
       }),
 
@@ -682,7 +682,7 @@ const DATA = Object.freeze({
 
     ui: Object.freeze({
       topbar: Object.freeze({
-        title: 'SOC // PORTFOLIO',
+        title: 'NOAH RENDLER',
         statusLabel: 'SEEKING PLACEMENT'
       }),
 
