@@ -5,6 +5,7 @@ import { initI18n } from './i18n.js';
 import { initNav, getNavState, restoreNav } from './navigation.js';
 import { initClock } from './clock.js';
 import { initContact } from './contact.js';
+import { initEasterEggs } from './eastereggs.js';
 
 (function bootstrap() {
   let _langTimer = null;
@@ -35,4 +36,5 @@ import { initContact } from './contact.js';
   initNav();
   initClock();
   initContact();
+  initEasterEggs();
 })();
